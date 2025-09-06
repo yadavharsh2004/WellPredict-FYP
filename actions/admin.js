@@ -1,6 +1,8 @@
 "use server";
 
+import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 
 export async function verifyAdmin() {
   const { userId } = await auth();
@@ -48,7 +50,6 @@ export async function getPendingDoctors() {
   }
 }
 
-
 // Gets all verified doctors
 export async function getVerifiedDoctors() {
   const isAdmin = await verifyAdmin();
@@ -71,7 +72,6 @@ export async function getVerifiedDoctors() {
     return { error: "Failed to fetch verified doctors" };
   }
 }
-
 
 // Updates a doctor's verification status
 export async function updateDoctorStatus(formData) {
@@ -136,36 +136,35 @@ export async function updateDoctorActiveStatus(formData) {
   }
 }
 
-
 // Gets all pending payouts that need admin approval
-export async function getPendingPayouts() {
-  const isAdmin = await verifyAdmin();
-  if (!isAdmin) throw new Error("Unauthorized");
+// export async function getPendingPayouts() {
+//   const isAdmin = await verifyAdmin();
+//   if (!isAdmin) throw new Error("Unauthorized");
 
-  try {
-    const pendingPayouts = await db.payout.findMany({
-      where: {
-        status: "PROCESSING",
-      },
-      include: {
-        doctor: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            specialty: true,
-            credits: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+//   try {
+//     const pendingPayouts = await db.payout.findMany({
+//       where: {
+//         status: "PROCESSING",
+//       },
+//       include: {
+//         doctor: {
+//           select: {
+//             id: true,
+//             name: true,
+//             email: true,
+//             specialty: true,
+//             credits: true,
+//           },
+//         },
+//       },
+//       orderBy: {
+//         createdAt: "desc",
+//       },
+//     });
 
-    return { payouts: pendingPayouts };
-  } catch (error) {
-    console.error("Failed to fetch pending payouts:", error);
-    throw new Error("Failed to fetch pending payouts");
-  }
-}
+//     return { payouts: pendingPayouts };
+//   } catch (error) {
+//     console.error("Failed to fetch pending payouts:", error);
+//     throw new Error("Failed to fetch pending payouts");
+//   }
+// }
