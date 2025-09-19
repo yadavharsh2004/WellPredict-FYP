@@ -41,6 +41,20 @@ const Header = async () => {
 
         <div className="flex items-center space-x-2">
           <SignedIn>
+
+            <a href="https://wellpredict.streamlit.app/">
+              <Button
+                variant="outline"
+                className="hidden md:inline-flex items-center gap-2"
+              >
+                <User className="h-4 w-4" />
+                Predict Chronic Disease
+              </Button>
+              <Button variant="ghost" className="md:hidden w-10 h-10 p-0">
+                <User className="h-4 w-4" />
+              </Button>
+            </a>
+
             {/* Admin Links */}
             {user?.role === "ADMIN" && (
               <Link href="/admin">
