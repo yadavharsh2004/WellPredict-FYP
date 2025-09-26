@@ -1,3 +1,5 @@
+"use client";
+
 import Pricing from "@/components/pricing";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -6,8 +8,11 @@ import { creditBenefits, features, testimonials } from "@/lib/data";
 import { ArrowRight, Stethoscope } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="bg-background">
       {/* Hero Section */}
@@ -252,6 +257,52 @@ export default function Home() {
           </Card>
         </div>
       </section>
+
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          width: "60px",
+          height: "60px",
+          borderRadius: "50%",
+          backgroundColor: "#009966", // purple button
+          color: "white",
+          border: "none",
+          cursor: "pointer",
+          fontSize: "24px",
+          zIndex: 1000,
+        }}
+      >
+        🤖
+      </button>
+
+      {/* Chat popup */}
+      {open && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "90px",
+            right: "20px",
+            width: "350px",
+            height: "500px",
+            borderRadius: "10px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+            overflow: "hidden",
+            zIndex: 1000,
+          }}
+        >
+          <iframe
+            src="https://www.chatbase.co/chatbot-iframe/DSYQjVQhgI6N4ZsyczdJW"
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            style={{ border: "none" }}
+            title="Chatbase Chatbot"
+          />
+        </div>
+      )}
     </div>
   );
 }
