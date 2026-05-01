@@ -13,7 +13,7 @@ export async function getDoctorsBySpecialty(specialty) {
         specialty: specialty.split("%20").join(" "),
       },
       orderBy: {
-        name: "asc",
+        name: "desc",
       },
     });
 
