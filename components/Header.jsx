@@ -42,7 +42,7 @@ const Header = async () => {
         <div className="flex items-center space-x-2">
           <SignedIn>
 
-            <a href="https://wellpredict.streamlit.app/">
+            <a href="https://wellpredict2-lgcvsxn95syomm6jcae3me.streamlit.app/">
               <Button
                 variant="outline"
                 className="hidden md:inline-flex items-center gap-2"
