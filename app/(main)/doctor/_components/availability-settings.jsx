@@ -83,7 +83,12 @@ export function AvailabilitySettings({ slots }) {
   // Format time string for display
   const formatTimeString = (dateString) => {
     try {
-      return format(new Date(dateString), "h:mm a");
+      // return format(new Date(dateString), "hh:mm a");
+        return new Date(dateString).toLocaleTimeString("en-IN", {
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
     } catch (e) {
       return "Invalid time";
     }
